@@ -20,7 +20,7 @@ class TransitionOnUnsavedObject(TransitionException):
 
 class PermissionDenied(TransitionException):
     def __init__(self, instance, transition, user):
-        if user.is_authenticated():
+        if user.is_authenticated:
             username = user.get_full_name()
         else:
             username = 'AnonymousUser'
