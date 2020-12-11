@@ -1,10 +1,30 @@
+dist: xenial
+
 language: python
-python: 2.7
-env:
-  - TOX_ENV=py27-dj16
-  - TOX_ENV=py27-dj17
-  - TOX_ENV=py27-dj18
+
+sudo: false
+
+git:
+  depth: 1
+  quiet: true
+
+cache: pip
+
+python:
+  - "3.7"
+  - "3.8"
+  - "3.9"
+  - "3.10-dev"
+
 install:
-  - pip install tox
-script:
-  - tox -e $TOX_ENV
+  - 'pip install tox-travis pyyaml python-coveralls'
+
+script: tox
+
+notifications:
+    slack:
+      rooms:
+        - pivotalenergy:SvNSkVaLVlZeu82utL37wSvy#travis
+
+after_success:
+  - coveralls
