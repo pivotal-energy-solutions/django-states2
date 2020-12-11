@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
 """State Machine"""
 from __future__ import absolute_import
-import six
 
 __all__ = ('StateMachine', 'StateDefinition', 'StateTransition')
 
 from collections import defaultdict
 import logging
 
+import six
 from django.contrib import messages
 from django_states.exceptions import (TransitionNotFound, TransitionValidationError,
                                 UnknownState, TransitionException, MachineDefinitionException)
-from django.utils.encoding import python_2_unicode_compatible
 
 
 logger = logging.getLogger(__name__)
@@ -191,7 +190,6 @@ class StateGroupMeta(type):
         return type.__new__(c, name, bases, attrs)
 
 
-@python_2_unicode_compatible
 class StateTransitionMeta(type):
     def __new__(c, name, bases, attrs):
         """
@@ -221,7 +219,7 @@ class StateTransitionMeta(type):
         return type.__new__(c, name, bases, attrs)
 
     def __str__(self):
-        return '%s: (from %s to %s)' % (six.text_type(self.description), ' or '.join(self.from_states), self.to_state)
+        return '%s: (from %s to %s)' % (self.description, ' or '.join(self.from_states), self.to_state)
 
 
 class StateMachine(six.with_metaclass(StateMachineMeta, object)):
@@ -248,7 +246,7 @@ class StateMachine(six.with_metaclass(StateMachineMeta, object)):
                         get_STATE_info().test_transition(transition_name,
                                                        request.user)
                     except TransitionException as e:
-                        modeladmin.message_user(request, 'ERROR: %s on: %s' % (e.message, six.text_type(o)),
+                        modeladmin.message_user(request, 'ERROR: %s on: %s' % (e.message, str(o)),
                                                 level=messages.ERROR)
                         return
 
@@ -261,7 +259,7 @@ class StateMachine(six.with_metaclass(StateMachineMeta, object)):
                 # Feeback
                 modeladmin.message_user(request, 'State changed for %s objects.' % len(queryset))
 
-            action.short_description = six.text_type(cls.transitions[transition_name])
+            action.short_description = str(cls.transitions[transition_name])
             action.__name__ = 'state_transition_%s' % transition_name
             return action
 

@@ -5,13 +5,14 @@ from __future__ import absolute_import
 __all__ = ('StateField',)
 
 from django.db import models
-from django.utils.functional import curry
+
 from django_states.machine import StateMachine
 
 from django_states.model_methods import (get_STATE_transitions,
                                    get_public_STATE_transitions,
                                    get_STATE_info, get_STATE_machine,
                                    get_STATE_display)
+from django_states.compat import curry
 
 
 class StateField(models.CharField):
@@ -115,21 +116,3 @@ class StateField(models.CharField):
             return result
 
         sender.save = new_save
-
-
-# South introspection
-try:
-    from south.modelsinspector import add_introspection_rules
-except ImportError:
-    pass
-else:
-    add_introspection_rules([
-        (
-            (StateField,),
-            [],
-            {
-                'max_length': [100, {"is_value": True}],
-            },
-        ),
-
-        ], ["^django_states\.fields\.StateField"])

@@ -56,7 +56,7 @@ def get_STATE_display(self, field='state', machine=None):
 
     if machine is None:
         return None
-    assert isinstance(machine, StateMachineMeta), "Machine must be a valid StateMachine"
+    assert isinstance(machine, StateMachineMeta), 'Machine must be a valid StateMachine'
 
     si = machine.get_state(getattr(self, field))
     return si.description
@@ -72,7 +72,7 @@ def get_STATE_info(self, field='state', machine=None):
     """
     if machine is None:
         return None
-    assert isinstance(machine, StateMachineMeta), "Machine must be a valid StateMachine"
+    assert isinstance(machine, StateMachineMeta), 'Machine must be a valid StateMachine'
 
     class state_info(object):
         """

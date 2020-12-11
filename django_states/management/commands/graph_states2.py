@@ -1,13 +1,12 @@
-from __future__ import absolute_import
+# -*- coding: utf-8 -*-
+
 import logging
-import os
 from optparse import make_option
+
+from django.apps import apps
 from yapgvb import Graph
 
-from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
-from django.db.models import get_model
-import six
 
 logger = logging.getLogger(__name__)
 
@@ -35,16 +34,16 @@ class Command(BaseCommand):
     def render_for_model(self, model_label, **options):
         app_label,model,field = model_label.split('.')
         try:
-            Model = get_model(app_label, model)
+            Model = apps.get_model(app_label, model)
         except LookupError:
             Model = None
         STATE_MACHINE = getattr(Model(), 'get_%s_machine' % field)()
 
-        name = six.text_type(Model._meta.verbose_name)
+        name = str(Model._meta.verbose_name)
         g = Graph('state_machine_graph_%s' % model_label, False)
         g.label = '%s State Machine' % name
-        g.rankdir = "TB"
-        g.ranksep = "0.5"
+        g.rankdir = 'TB'
+        g.ranksep = '0.5'
         nodes = {}
         edges = {}
         for state, state_machine in STATE_MACHINE.states.items():
@@ -52,8 +51,8 @@ class Command(BaseCommand):
             if hasattr(state_machine, 'description'):
                 label = state_machine.description
                 if len(state_machine.description) > 32:
-                     label = state_machine.description[:29] + "..."
-                label += "\n (%s)" % state
+                     label = state_machine.description[:29] + '...'
+                label += '\n (%s)' % state
 
             shape = 'rect'
             color = 'lightgrey'
@@ -72,7 +71,7 @@ class Command(BaseCommand):
                     return i
             return None
 
-        for trion_name,trion in six.iteritems(STATE_MACHINE.transitions):
+        for trion_name, trion in STATE_MACHINE.transitions:
             for from_state in trion.from_states:
                 edge = g.add_edge(nodes[from_state], nodes[trion.to_state])
                 edge.dir = 'forward'

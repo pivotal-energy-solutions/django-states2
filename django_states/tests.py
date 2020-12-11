@@ -20,45 +20,45 @@ class TestMachine(StateMachine):
     # States
     class start(StateDefinition):
         """Start"""
-        description = "Starting State."
+        description = 'Starting State.'
         initial = True
 
     class step_1(StateDefinition):
         """Normal State"""
-        description = "Normal State"
+        description = 'Normal State'
 
     class step_2_fail(StateDefinition):
         """Failure State"""
-        description = "Failure State"
+        description = 'Failure State'
 
     class step_3(StateDefinition):
         """Completed"""
-        description = "Completed"
+        description = 'Completed'
 
     # Transitions
     class start_step_1(StateTransition):
         """Transition from start to normal"""
         from_state = 'start'
         to_state = 'step_1'
-        description = "Transition from start to normal"
+        description = 'Transition from start to normal'
 
     class step_1_step_2_fail(StateTransition):
         """Transition from normal to failure"""
         from_state = 'step_1'
         to_state = 'step_2_fail'
-        description = "Transition from normal to failure"
+        description = 'Transition from normal to failure'
 
     class step_1_step_3(StateTransition):
         """Transition from normal to complete"""
         from_state = 'step_1'
         to_state = 'step_3'
-        description = "Transition from normal to complete"
+        description = 'Transition from normal to complete'
 
     class step_2_fail_step_1(StateTransition):
         """Transition from failure back to normal"""
         from_state = 'step_2_fail'
         to_state = 'step_1'
-        description = "Transition from failure back to normal"
+        description = 'Transition from failure back to normal'
 
     """
     GROUPS
@@ -79,30 +79,30 @@ class TestLogMachine(StateMachine):
     # States
     class start(StateDefinition):
         """Start"""
-        description = "Starting State."
+        description = 'Starting State.'
         initial = True
 
     class first_step(StateDefinition):
         """Normal State"""
-        description = "Normal State"
+        description = 'Normal State'
 
     class final_step(StateDefinition):
         """Completed"""
-        description = "Completed"
+        description = 'Completed'
 
     # Transitions
     class start_step_1(StateTransition):
         """Transition from start to normal"""
         from_state = 'start'
         to_state = 'first_step'
-        description = "Transition from start to normal"
+        description = 'Transition from start to normal'
         public = True
 
     class step_1_final_step(StateTransition):
         """Transition from normal to complete"""
         from_state = 'first_step'
         to_state = 'final_step'
-        description = "Transition from normal to complete"
+        description = 'Transition from normal to complete'
         public = True
 
 # ----- Django Test Models ------
@@ -367,11 +367,11 @@ class StateFieldTestCase(TransactionTestCase):
 
     def setUp(self):
         self.superuser = User.objects.create_superuser(
-            username='super', email="super@h.us", password="pass")
+            username='super', email='super@h.us', password='pass')
 
     def test_initial_state(self):
         """Full end to end test"""
-        testclass = DjangoState2Class(field1=100, field2="LALALALALA")
+        testclass = DjangoState2Class(field1=100, field2='LALALALALA')
         testclass.save()
 
         self.assertEqual(testclass.get_state_machine(), TestMachine)
@@ -386,7 +386,7 @@ class StateFieldTestCase(TransactionTestCase):
 
     def test_end_to_end(self):
         """Full end to end test"""
-        testclass = DjangoState2Class(field1=100, field2="LALALALALA")
+        testclass = DjangoState2Class(field1=100, field2='LALALALALA')
         testclass.save()
 
         state_info = testclass.get_state_info()
@@ -425,9 +425,9 @@ class StateFieldTestCase(TransactionTestCase):
     def test_invalid_user(self):
         """Verify permissions for a user"""
         user = User.objects.create(
-            username='user', email="user@h.us", password="pass")
+            username='user', email='user@h.us', password='pass')
 
-        testclass = DjangoState2Class(field1=100, field2="LALALALALA")
+        testclass = DjangoState2Class(field1=100, field2='LALALALALA')
         testclass.save()
 
         kwargs = {'transition': 'start_step_1', 'user': user}
@@ -438,7 +438,7 @@ class StateFieldTestCase(TransactionTestCase):
 
     def test_in_group(self):
         """Tests in_group functionality"""
-        testclass = DjangoState2Class(field1=100, field2="LALALALALA")
+        testclass = DjangoState2Class(field1=100, field2='LALALALALA')
         testclass.save()
 
         state_info = testclass.get_state_info()
@@ -455,7 +455,7 @@ class StateFieldTestCase(TransactionTestCase):
         self.assertFalse(state_info.in_group['states_valid_start'])
 
     def test_unknown_transition(self):
-        test = DjangoState2Class(field1=100, field2="LALALALALA")
+        test = DjangoState2Class(field1=100, field2='LALALALALA')
         test.save()
 
         state_info = test.get_state_info()
@@ -463,7 +463,7 @@ class StateFieldTestCase(TransactionTestCase):
             state_info.make_transition('unknown_transition', user=self.superuser)
 
     def test_unknown_state(self):
-        test = DjangoState2Class(field1=100, field2="LALALALALA")
+        test = DjangoState2Class(field1=100, field2='LALALALALA')
         test.save()
 
         test.state = 'not-existing-state-state'
@@ -477,7 +477,7 @@ class StateFieldTestCase(TransactionTestCase):
         #    test.save()
 
     def test_state_save_handler(self):
-        test = DjangoState2Class(field1=100, field2="LALALALALA")
+        test = DjangoState2Class(field1=100, field2='LALALALALA')
         test.save(no_state_validation=False)
 
 
@@ -486,7 +486,7 @@ class StateModelTestCase(TransactionTestCase):
 
     def setUp(self):
         self.superuser = User.objects.create_superuser(
-            username='super', email="super@h.us", password="pass")
+            username='super', email='super@h.us', password='pass')
 
     def test_classmethods(self):
         self.assertEqual(DjangoStateClass.get_state_model_name(),
@@ -499,12 +499,12 @@ class StateModelTestCase(TransactionTestCase):
         self.assertEqual(state_choices['start'], 'Starting State.')
 
     def test_model_end_to_end(self):
-        test = DjangoStateClass(field1=42, field2="Knock? Knock?")
+        test = DjangoStateClass(field1=42, field2='Knock? Knock?')
         test.save()
 
         self.assertEqual(test.state, 'start')
         self.assertTrue(test.is_initial_state)
-        self.assertEqual(test.state_description, "Starting State.")
+        self.assertEqual(test.state_description, 'Starting State.')
 
         self.assertEqual(len(list(test.possible_transitions)), 1)
         self.assertEqual(len(list(test.public_transitions)), 0)
@@ -521,10 +521,10 @@ class StateLogTestCase(TransactionTestCase):
 
     def setUp(self):
         self.superuser = User.objects.create_superuser(
-            username='super', email="super@h.us", password="pass")
+            username='super', email='super@h.us', password='pass')
 
     def test_statelog(self):
-        test = DjangoStateLogClass(field1=42, field2="Hello world?")
+        test = DjangoStateLogClass(field1=42, field2='Hello world?')
         test.save(no_state_validation=False)
 
         # Verify the starting state.

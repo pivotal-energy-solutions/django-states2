@@ -15,7 +15,7 @@ class TransitionException(States2Exception):
 class TransitionOnUnsavedObject(TransitionException):
     def __init__(self, instance):
         TransitionException.__init__(self, "Cannot run state transition on unsaved object '%s'. "
-                "Please call save() on this object first." % instance)
+                'Please call save() on this object first.' % instance)
 
 
 class PermissionDenied(TransitionException):

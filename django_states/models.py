@@ -17,8 +17,7 @@ __all__ = ('StateMachine', 'StateDefinition', 'StateTransition', 'StateModel')
 
 from django.db import models
 from django.db.models.base import ModelBase
-from django.utils.encoding import python_2_unicode_compatible
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from django_states.machine import StateMachine, StateDefinition, StateTransition
 from django_states.exceptions import States2Exception
@@ -44,18 +43,17 @@ class StateModelBase(ModelBase):
                                         machine=attrs['Machine'])
 
         # Wrap __unicode__ for state model
-        if '__unicode__' in attrs:
-            old_unicode = attrs['__unicode__']
+        if '__str__' in attrs:
+            old_str = attrs['__str__']
 
-            def new_unicode(self):
-                return '%s (%s)' % (old_unicode(self), self.Machine.get_state(self.state).description)
-            attrs['__unicode__'] = new_unicode
+            def new_str(self):
+                return '%s (%s)' % (old_str(self), self.Machine.get_state(self.state).description)
+            attrs['__str__'] = new_str
 
         # Call class constructor of parent
         return ModelBase.__new__(cls, name, bases, attrs)
 
 
-@python_2_unicode_compatible
 class StateModel(six.with_metaclass(StateModelBase, models.Model)):
     """
     Every model which needs state can inherit this abstract model.
@@ -110,7 +108,7 @@ class StateModel(six.with_metaclass(StateModelBase, models.Model)):
         """
         Gets the full description of the (current) state
         """
-        return six.text_type(self.get_state_info().description)
+        return str(self.get_state_info().description)
 
     @property
     def is_initial_state(self):

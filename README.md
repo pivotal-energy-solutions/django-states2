@@ -145,5 +145,3 @@ management command.
 
 This requires [graphviz](<http://graphviz.org>) and python bindings for
 graphviz: ``pygraphviz`` and ``yapgvb``.
-
-
