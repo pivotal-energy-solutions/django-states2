@@ -46,6 +46,7 @@ local.properties
 ## PyCharm
 ##########
 .idea/
+.venv/
 
 # CDT-specific
 .cproject
