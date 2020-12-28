@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 """Models"""
-from __future__ import absolute_import
-import six
 
 # Author: Jonathan Slenders, CityLive
 
@@ -54,7 +52,7 @@ class StateModelBase(ModelBase):
         return ModelBase.__new__(cls, name, bases, attrs)
 
 
-class StateModel(six.with_metaclass(StateModelBase, models.Model)):
+class StateModel(metaclass=StateModelBase):
     """
     Every model which needs state can inherit this abstract model.
 

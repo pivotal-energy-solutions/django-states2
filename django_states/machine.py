@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 """State Machine"""
-from __future__ import absolute_import
 
 __all__ = ('StateMachine', 'StateDefinition', 'StateTransition')
 
 from collections import defaultdict
 import logging
 
-import six
 from django.contrib import messages
 from django_states.exceptions import (TransitionNotFound, TransitionValidationError,
                                 UnknownState, TransitionException, MachineDefinitionException)
@@ -222,7 +220,7 @@ class StateTransitionMeta(type):
         return '%s: (from %s to %s)' % (self.description, ' or '.join(self.from_states), self.to_state)
 
 
-class StateMachine(six.with_metaclass(StateMachineMeta, object)):
+class StateMachine(metaclass=StateMachineMeta):
     """
     Base class for a state machine definition
     """
@@ -276,7 +274,7 @@ class StateMachine(six.with_metaclass(StateMachineMeta, object)):
         return [(k, cls.states[k].description) for k in list(cls.states.keys())]
 
 
-class StateDefinition(six.with_metaclass(StateDefinitionMeta, object)):
+class StateDefinition(metaclass=StateDefinitionMeta):
     """
     Base class for a state definition
     """
@@ -300,7 +298,7 @@ class StateDefinition(six.with_metaclass(StateDefinitionMeta, object)):
         return cls.__name__
 
 
-class StateGroup(six.with_metaclass(StateGroupMeta, object)):
+class StateGroup(metaclass=StateGroupMeta):
     """
     Base class for a state groups
     """
@@ -316,7 +314,7 @@ class StateGroup(six.with_metaclass(StateGroupMeta, object)):
         return cls.__name__
 
 
-class StateTransition(six.with_metaclass(StateTransitionMeta, object)):
+class StateTransition(metaclass=StateTransitionMeta):
     """
     Base class for a state transitions
     """

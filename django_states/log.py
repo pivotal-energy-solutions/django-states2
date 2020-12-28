@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 """log model"""
-from __future__ import absolute_import
 
 import json
 import sys
 
-import six
 from django.db import models
 from django.db.models.base import ModelBase
 from django.utils.translation import gettext_lazy as _
@@ -103,7 +101,7 @@ def _create_state_log_model(state_model, field_name, machine):
 
     get_state_choices = machine.get_state_choices
 
-    class _StateTransition(six.with_metaclass(_StateTransitionMeta, models.Model)):
+    class _StateTransition(metaclass=_StateTransitionMeta):
         """
         The log entries for :class:`~django_states.machine.StateTransition`.
         """
