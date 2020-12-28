@@ -274,7 +274,7 @@ class StateMachine(object, metaclass=StateMachineMeta):
         return [(k, cls.states[k].description) for k in list(cls.states.keys())]
 
 
-class StateDefinition(metaclass=StateDefinitionMeta):
+class StateDefinition(object, metaclass=StateDefinitionMeta):
     """
     Base class for a state definition
     """
@@ -298,7 +298,7 @@ class StateDefinition(metaclass=StateDefinitionMeta):
         return cls.__name__
 
 
-class StateGroup(metaclass=StateGroupMeta):
+class StateGroup(object, metaclass=StateGroupMeta):
     """
     Base class for a state groups
     """
@@ -314,7 +314,7 @@ class StateGroup(metaclass=StateGroupMeta):
         return cls.__name__
 
 
-class StateTransition(metaclass=StateTransitionMeta):
+class StateTransition(object, metaclass=StateTransitionMeta):
     """
     Base class for a state transitions
     """

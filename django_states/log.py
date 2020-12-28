@@ -101,7 +101,7 @@ def _create_state_log_model(state_model, field_name, machine):
 
     get_state_choices = machine.get_state_choices
 
-    class _StateTransition(metaclass=_StateTransitionMeta):
+    class _StateTransition(models.Model, metaclass=_StateTransitionMeta):
         """
         The log entries for :class:`~django_states.machine.StateTransition`.
         """

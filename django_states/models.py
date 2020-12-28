@@ -52,7 +52,7 @@ class StateModelBase(ModelBase):
         return ModelBase.__new__(cls, name, bases, attrs)
 
 
-class StateModel(metaclass=StateModelBase):
+class StateModel(models.Model, metaclasss=StateModelBase):
     """
     Every model which needs state can inherit this abstract model.
 
