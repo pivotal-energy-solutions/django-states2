@@ -220,7 +220,7 @@ class StateTransitionMeta(type):
         return '%s: (from %s to %s)' % (self.description, ' or '.join(self.from_states), self.to_state)
 
 
-class StateMachine(metaclass=StateMachineMeta):
+class StateMachine(object, metaclass=StateMachineMeta):
     """
     Base class for a state machine definition
     """
