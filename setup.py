@@ -51,7 +51,7 @@ setup(
     python_requires='>=3.6,',
     keywords='django state-machine',  # Optional
     packages=find_packages(exclude=['contrib', 'docs', 'test_proj']),  # Required
-    install_requires=['Django>=2.2', ],  # Optional
+    install_requires=['Django>=2.2', 'six'],  # Optional
     project_urls={  # Optional
         'Bug Reports': '{}/issues'.format(base_url),
         'Say Thanks!': 'https://saythanks.io/to/rh0dium',
