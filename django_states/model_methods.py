@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 """Model Methods"""
-from __future__ import absolute_import
 
 import json
 
@@ -62,7 +61,7 @@ def get_STATE_display(self, field='state', machine=None):
     return si.description
 
 
-def get_STATE_info(self, field='state', machine=None):
+def get_STATE_info(self, field='state', machine=None):  # noqa: C901
     """
     Gets the state definition from the machine
 
@@ -208,10 +207,10 @@ def get_STATE_info(self, field='state', machine=None):
                 after_state_execute.send(sender=self,
                                          from_state=from_state,
                                          to_state=t.to_state)
-            except Exception as e:
+            except Exception as err:
                 if _state_log_model:
                     transition_log.make_transition('fail')
-
+                print(err)
                 raise
             else:
                 if _state_log_model:

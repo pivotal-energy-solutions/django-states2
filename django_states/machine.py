@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 """State Machine"""
-from __future__ import absolute_import
-
 __all__ = ('StateMachine', 'StateDefinition', 'StateTransition')
 
 from collections import defaultdict
@@ -10,8 +8,7 @@ import logging
 import six
 from django.contrib import messages
 from django_states.exceptions import (TransitionNotFound, TransitionValidationError,
-                                UnknownState, TransitionException, MachineDefinitionException)
-
+                                      UnknownState, TransitionException, MachineDefinitionException)
 
 logger = logging.getLogger(__name__)
 
@@ -145,7 +142,7 @@ class StateMachineMeta(type):
             if hasattr(sg, 'states'):
                 result[group] = state_name in sg.states
             elif hasattr(sg, 'exclude_states'):
-                result[group] = not state_name in sg.exclude_states
+                result[group] = state_name not in sg.exclude_states
         return result
 
 
@@ -156,8 +153,9 @@ class StateDefinitionMeta(type):
         """
         if bases != (object,):
             if name.lower() != name and not attrs.get('abstract', False):
-                raise Exception('Please use lowercase names for state definitions (instead of %s)' % name)
-            if not 'description' in attrs and not attrs.get('abstract', False):
+                raise Exception(
+                    'Please use lowercase names for state definitions (instead of %s)' % name)
+            if 'description' not in attrs and not attrs.get('abstract', False):
                 raise Exception('Please give a description to this state definition')
 
         if 'handler' in attrs and len(attrs['handler'].__code__.co_varnames) < 2:
@@ -179,7 +177,7 @@ class StateGroupMeta(type):
             # check attributes
             if 'states' in attrs and 'exclude_states' in attrs:
                 raise Exception('Use either states or exclude_states but not both')
-            elif not 'states' in attrs and not 'exclude_states' in attrs:
+            elif 'states' not in attrs and 'exclude_states' not in attrs:
                 raise Exception('Please specify states or exclude_states to this state group')
             # check type of attributes
             if 'exclude_states' in attrs and not isinstance(attrs['exclude_states'], (list, set)):
@@ -201,11 +199,11 @@ class StateTransitionMeta(type):
             if 'from_state' in attrs:
                 attrs['from_states'] = (attrs['from_state'],)
                 del attrs['from_state']
-            if not 'from_states' in attrs:
+            if 'from_states' not in attrs:
                 raise Exception('Please give a from_state to this state transition')
-            if not 'to_state' in attrs:
+            if 'to_state' not in attrs:
                 raise Exception('Please give a from_state to this state transition')
-            if not 'description' in attrs:
+            if 'description' not in attrs:
                 raise Exception('Please give a description to this state transition')
 
         if 'handler' in attrs and len(attrs['handler'].__code__.co_varnames) < 3:
@@ -219,7 +217,8 @@ class StateTransitionMeta(type):
         return type.__new__(c, name, bases, attrs)
 
     def __str__(self):
-        return '%s: (from %s to %s)' % (self.description, ' or '.join(self.from_states), self.to_state)
+        return '%s: (from %s to %s)' % \
+               (self.description, ' or '.join(self.from_states), self.to_state)
 
 
 class StateMachine(six.with_metaclass(StateMachineMeta, object)):
@@ -243,8 +242,7 @@ class StateMachine(six.with_metaclass(StateMachineMeta, object)):
                 for o in queryset:
                     get_STATE_info = getattr(o, 'get_%s_info' % field_name)
                     try:
-                        get_STATE_info().test_transition(transition_name,
-                                                       request.user)
+                        get_STATE_info().test_transition(transition_name, request.user)
                     except TransitionException as e:
                         modeladmin.message_user(request, 'ERROR: %s on: %s' % (e.message, str(o)),
                                                 level=messages.ERROR)
@@ -253,8 +251,7 @@ class StateMachine(six.with_metaclass(StateMachineMeta, object)):
                 # Make actual transitions
                 for o in queryset:
                     get_STATE_info = getattr(o, 'get_%s_info' % field_name)
-                    get_STATE_info().make_transition(transition_name,
-                                                   request.user)
+                    get_STATE_info().make_transition(transition_name, request.user)
 
                 # Feeback
                 modeladmin.message_user(request, 'State changed for %s objects.' % len(queryset))

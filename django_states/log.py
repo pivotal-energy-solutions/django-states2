@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 """log model"""
-from __future__ import absolute_import
 
 import json
 import sys

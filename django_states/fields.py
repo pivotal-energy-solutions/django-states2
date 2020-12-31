@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 """Fields used"""
-from __future__ import absolute_import
 
 __all__ = ('StateField',)
 
@@ -9,9 +8,9 @@ from django.db import models
 from django_states.machine import StateMachine
 
 from django_states.model_methods import (get_STATE_transitions,
-                                   get_public_STATE_transitions,
-                                   get_STATE_info, get_STATE_machine,
-                                   get_STATE_display)
+                                         get_public_STATE_transitions,
+                                         get_STATE_info, get_STATE_machine,
+                                         get_STATE_display)
 from django_states.compat import curry
 
 
@@ -25,6 +24,7 @@ class StateField(models.CharField):
 
         status = StateField(machine=PowerState)
     """
+
     def __init__(self, **kwargs):
         # State machine parameter. (Fall back to default machine.
         # e.g. when South is creating an instance.)
@@ -70,15 +70,15 @@ class StateField(models.CharField):
 
         # adding extra methods
         setattr(cls, 'get_%s_display' % name,
-            curry(get_STATE_display, field=name, machine=self._machine))
+                curry(get_STATE_display, field=name, machine=self._machine))
         setattr(cls, 'get_%s_transitions' % name,
-            curry(get_STATE_transitions, field=name))
+                curry(get_STATE_transitions, field=name))
         setattr(cls, 'get_public_%s_transitions' % name,
-            curry(get_public_STATE_transitions, field=name))
+                curry(get_public_STATE_transitions, field=name))
         setattr(cls, 'get_%s_info' % name,
-            curry(get_STATE_info, field=name, machine=self._machine))
+                curry(get_STATE_info, field=name, machine=self._machine))
         setattr(cls, 'get_%s_machine' % name,
-            curry(get_STATE_machine, field=name, machine=self._machine))
+                curry(get_STATE_machine, field=name, machine=self._machine))
 
         models.signals.class_prepared.connect(self.finalize, sender=cls)
 
