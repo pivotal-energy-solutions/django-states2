@@ -15,5 +15,5 @@ __date__ = '2014/07/22 4:47:00 PM'
 __credits__ = ['Jonathan Slenders', 'Ben Mason', 'Dirk Moors', 'Gert Van Gool', 'Giovanni Collazo', 'Jakub Paczkowski',
                'Jan Fabry', 'Jef Geskens', 'Jonathan Slenders', 'José Padilla', 'Linsy Aerts',
                'Maarten Timmerman', 'Niels Van Och', 'Olivier Sels', 'OpenShift guest', 'San Gillis',
-               'Simon Andersson', 'Steven Klass', 'sgillis', 'techdragon',]
+               'Simon Andersson', 'Steven Klass', 'sgillis', 'techdragon']
 __license__ = 'See the file LICENSE.txt for licensing information.'

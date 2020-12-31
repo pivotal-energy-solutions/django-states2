@@ -5,8 +5,7 @@ import six
 
 # Author: Jonathan Slenders, CityLive
 
-__doc__ = \
-"""
+__doc__ = """
 
 Base models for every State.
 

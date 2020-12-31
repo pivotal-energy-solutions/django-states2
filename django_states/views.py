@@ -4,7 +4,7 @@ from __future__ import absolute_import
 
 from django.apps import apps
 from django.http import (HttpResponseRedirect, HttpResponseForbidden,
-                         HttpResponse,)
+                         HttpResponse, )
 from django.shortcuts import get_object_or_404
 
 from django_states.exceptions import PermissionDenied
@@ -40,7 +40,7 @@ def make_state_transition(request):
         kwargs = {}
         for p in request.POST:
             if p.startswith('kwarg-'):
-                kwargs[p[len('kwargs-')-1:]] = request.POST[p]
+                kwargs[p[len('kwargs-') - 1:]] = request.POST[p]
 
         if not hasattr(instance, 'make_transition'):
             raise Exception('No such state model "%s"' % model_name)
@@ -48,7 +48,8 @@ def make_state_transition(request):
         try:
             # Make state transition
             instance.make_transition(action, request.user, **kwargs)
-        except PermissionDenied as e:
+        except PermissionDenied as err:
+            print(err)
             return HttpResponseForbidden()
         else:
             # ... Redirect to 'next'

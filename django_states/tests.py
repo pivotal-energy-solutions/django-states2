@@ -63,6 +63,7 @@ class TestMachine(StateMachine):
     """
     GROUPS
     """
+
     class states_valid_start(StateGroup):
         # Valid initial states
         states = ['start', 'step_1']
@@ -105,6 +106,7 @@ class TestLogMachine(StateMachine):
         description = 'Transition from normal to complete'
         public = True
 
+
 # ----- Django Test Models ------
 
 
@@ -130,6 +132,7 @@ class DjangoStateLogClass(models.Model):
 
     state = StateField(machine=TestLogMachine)
 
+
 # ---- Tests ----
 
 
@@ -137,7 +140,7 @@ class StateMachineTestCase(TransactionTestCase):
 
     def test_initial_states(self):
         with self.assertRaises(Exception):
-            class T1Machine(StateMachine):
+            class T1Machine(StateMachine):  # noqa: F811
                 class start(StateDefinition):
                     description = 'start state'
                     initial = True
@@ -147,7 +150,7 @@ class StateMachineTestCase(TransactionTestCase):
                     initial = True
 
         with self.assertRaises(Exception):
-            class T1Machine(StateMachine):
+            class T1Machine(StateMachine):  # noqa: F811
                 class start(StateDefinition):
                     description = 'start state'
 
@@ -155,18 +158,18 @@ class StateMachineTestCase(TransactionTestCase):
                     description = 'running state'
 
         with self.assertRaises(Exception):
-            class T1Machine(StateMachine):
+            class T1Machine(StateMachine):  # noqa: F811
                 class START(StateDefinition):
                     description = 'start state'
                     initial = True
 
         with self.assertRaises(Exception):
-            class T1Machine(StateMachine):
+            class T1Machine(StateMachine):  # noqa: F811
                 class start(StateDefinition):
                     initial = True
 
         with self.assertRaises(Exception):
-            class T1Machine(StateMachine):
+            class T1Machine(StateMachine):  # noqa: F811
                 class start(StateDefinition):
                     description = 'start state'
                     initial = True
@@ -178,7 +181,7 @@ class StateMachineTestCase(TransactionTestCase):
                     pass
 
         with self.assertRaises(Exception):
-            class T1Machine(StateMachine):
+            class T1Machine(StateMachine):  # noqa: F811
                 class start(StateDefinition):
                     description = 'start state'
                     initial = True
@@ -191,7 +194,7 @@ class StateMachineTestCase(TransactionTestCase):
                     exclude_states = ['running']
 
         with self.assertRaises(Exception):
-            class T1Machine(StateMachine):
+            class T1Machine(StateMachine):  # noqa: F811
                 class start(StateDefinition):
                     description = 'start state'
                     initial = True
@@ -203,7 +206,7 @@ class StateMachineTestCase(TransactionTestCase):
                     states = 'start'
 
         with self.assertRaises(Exception):
-            class T1Machine(StateMachine):
+            class T1Machine(StateMachine):  # noqa: F811
                 class start(StateDefinition):
                     description = 'start state'
                     initial = True
@@ -215,7 +218,7 @@ class StateMachineTestCase(TransactionTestCase):
                     exclude_states = 'running'
 
         with self.assertRaises(Exception):
-            class T1Machine(StateMachine):
+            class T1Machine(StateMachine):  # noqa: F811
                 class start(StateDefinition):
                     description = 'start state'
                     initial = True
@@ -229,7 +232,7 @@ class StateMachineTestCase(TransactionTestCase):
                     description = 'Start up the machine!'
 
         with self.assertRaises(Exception):
-            class T1Machine(StateMachine):
+            class T1Machine(StateMachine):  # noqa: F811
                 class start(StateDefinition):
                     description = 'start state'
                     initial = True
@@ -245,7 +248,7 @@ class StateMachineTestCase(TransactionTestCase):
                     description = 'Start up the machine!'
 
         with self.assertRaises(Exception):
-            class T1Machine(StateMachine):
+            class T1Machine(StateMachine):  # noqa: F811
                 class start(StateDefinition):
                     description = 'start state'
                     initial = True
@@ -259,7 +262,7 @@ class StateMachineTestCase(TransactionTestCase):
                     description = 'Start up the machine!'
 
         with self.assertRaises(Exception):
-            class T1Machine(StateMachine):
+            class T1Machine(StateMachine):  # noqa: F811
                 class start(StateDefinition):
                     description = 'start state'
                     initial = True
@@ -273,7 +276,7 @@ class StateMachineTestCase(TransactionTestCase):
                     to_state = 'running'
 
         with self.assertRaises(Exception):
-            class T1Machine(StateMachine):
+            class T1Machine(StateMachine):  # noqa: F811
                 class start(StateDefinition):
                     description = 'start state'
                     initial = True
@@ -285,7 +288,7 @@ class StateMachineTestCase(TransactionTestCase):
                         pass
 
         with self.assertRaises(Exception):
-            class T1Machine(StateMachine):
+            class T1Machine(StateMachine):  # noqa: F811
                 class start(StateDefinition):
                     description = 'start state'
                     initial = True
@@ -473,7 +476,7 @@ class StateFieldTestCase(TransactionTestCase):
         test.save(no_state_validation=True)
         test.state = 'not-existing-state-state3'
         # TODO: Due to invalid default value of no_state_validation, this won't throw an error
-        #with self.assertRaises(UnknownState):
+        # with self.assertRaises(UnknownState):
         #    test.save()
 
     def test_state_save_handler(self):

@@ -14,11 +14,15 @@ logger = logging.getLogger(__name__)
 class Command(BaseCommand):
     help = '''Generates a graph of available state machines'''
     option_list = BaseCommand.option_list + (
-        make_option('--layout', '-l', action='store', dest='layout', default='dot',
-            help='Layout to be used by GraphViz for visualization. Layouts: circo dot fdp neato twopi'),
-        make_option('--format', '-f', action='store', dest='format', default='pdf',
+        make_option(
+            '--layout', '-l', action='store', dest='layout', default='dot',
+            help='Layout to be used by GraphViz for visualization. '
+                 'Layouts: circo dot fdp neato twopi'),
+        make_option(
+            '--format', '-f', action='store', dest='format', default='pdf',
             help='Format of the output file. Formats: pdf, jpg, png'),
-        make_option('--create-dot', action='store_true', dest='create_dot', default=False,
+        make_option(
+            '--create-dot', action='store_true', dest='create_dot', default=False,
             help='Create a dot file'),
     )
     args = '[model_label.field]'
@@ -32,7 +36,7 @@ class Command(BaseCommand):
             self.render_for_model(model_label, **options)
 
     def render_for_model(self, model_label, **options):
-        app_label,model,field = model_label.split('.')
+        app_label, model, field = model_label.split('.')
         try:
             Model = apps.get_model(app_label, model)
         except LookupError:
@@ -51,7 +55,7 @@ class Command(BaseCommand):
             if hasattr(state_machine, 'description'):
                 label = state_machine.description
                 if len(state_machine.description) > 32:
-                     label = state_machine.description[:29] + '...'
+                    label = state_machine.description[:29] + '...'
                 label += '\n (%s)' % state
 
             shape = 'rect'
@@ -85,10 +89,12 @@ class Command(BaseCommand):
                 edges[u'%s-->%s' % (from_state, trion.to_state)] = edge
             logger.debug('Created %d edges for %s', len(trion.from_states), trion.get_name())
 
-            #if trion.next_function_name is not None:
-            #    tr = find(lambda t: t.function_name == trion.next_function_name and t.from_state == trion.to_state, STATE_MACHINE.trions)
+            # if trion.next_function_name is not None:
+            #    tr = find(lambda t: t.function_name == trion.next_function_name
+            #    and t.from_state == trion.to_state, STATE_MACHINE.trions)
             #    while tr.next_function_name is not None:
-            #        tr = find(lambda t: t.function_name == tr.next_function_name and t.from_state == tr.to_state, STATE_MACHINE.trions)
+            #        tr = find(lambda t: t.function_name == tr.next_function_name
+            #        and t.from_state == tr.to_state, STATE_MACHINE.trions)
 
             #    if tr is not None:
             #        meta_edge = g.add_edge(nodes[trion.from_state], nodes[tr.to_state])
@@ -98,11 +104,13 @@ class Command(BaseCommand):
             #        meta_edge.fontname = 'Arial'
             #        meta_edge.color = 'blue'
 
-            #if any(lambda t: (t.next_function_name == trion.function_name), STATE_MACHINE.trions):
+            # if any(lambda t: (t.next_function_name == trion.function_name), STATE_MACHINE.trions):
             #    edge.color = 'red'
             #    edge.style = 'dashed'
             #    edge.label += '\n(auto)'
-        logger.info('Creating state graph for %s with %d nodes and %d edges' % (name, len(nodes), len(edges)))
+
+        logger.info('Creating state graph for %s with %d nodes and %d edges' %
+                    (name, len(nodes), len(edges)))
 
         loc = 'state_machine_%s' % (model_label,)
         if options['create_dot']:

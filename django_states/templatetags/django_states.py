@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
-from django.template import Node, NodeList, Variable
-from django.template import TemplateSyntaxError, VariableDoesNotExist
+from django.template import Node, Variable
 from django.template import Library
 
 register = Library()
@@ -40,7 +39,7 @@ def can_make_transition(parser, token):
     args = token.split_contents()
 
     # Read nodelist
-    nodelist = parser.parse(('endcan_make_transition', ))
+    nodelist = parser.parse(('endcan_make_transition',))
     parser.delete_first_token()
 
     # Return meta node
