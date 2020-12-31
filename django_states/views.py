@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 """Views"""
-from __future__ import absolute_import
 
 from django.apps import apps
 from django.http import (HttpResponseRedirect, HttpResponseForbidden,
