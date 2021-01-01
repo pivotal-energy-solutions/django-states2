@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Urls"""
 
-from .compat import url
+from django.conf.urls import url
 from django_states.views import make_state_transition
 
 urlpatterns = [
