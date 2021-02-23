@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 """Urls"""
 
-from django.conf.urls import url
+from django.urls import re_path
 from django_states.views import make_state_transition
 
 urlpatterns = [
-    url(r'^make-state-transition/$', make_state_transition, name='django_states_make_transition'),
+    re_path(r'^make-state-transition/$', make_state_transition,
+            name='django_states_make_transition'),
 ]
