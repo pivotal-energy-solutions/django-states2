@@ -1,16 +1,19 @@
 # -*- coding: utf-8 -*-
 """Fields used"""
 
-__all__ = ('StateField',)
+__all__ = ("StateField",)
 
 from django.db import models
 
 from django_states.machine import StateMachine
 
-from django_states.model_methods import (get_STATE_transitions,
-                                         get_public_STATE_transitions,
-                                         get_STATE_info, get_STATE_machine,
-                                         get_STATE_display)
+from django_states.model_methods import (
+    get_STATE_transitions,
+    get_public_STATE_transitions,
+    get_STATE_info,
+    get_STATE_machine,
+    get_STATE_display,
+)
 from django_states.compat import curry
 
 
@@ -28,10 +31,10 @@ class StateField(models.CharField):
     def __init__(self, **kwargs):
         # State machine parameter. (Fall back to default machine.
         # e.g. when South is creating an instance.)
-        self._machine = kwargs.pop('machine', StateMachine)
+        self._machine = kwargs.pop("machine", StateMachine)
 
-        kwargs.setdefault('max_length', 100)
-        kwargs['choices'] = None
+        kwargs.setdefault("max_length", 100)
+        kwargs["choices"] = None
         super(StateField, self).__init__(**kwargs)
 
     def contribute_to_class(self, cls, name):
@@ -60,25 +63,31 @@ class StateField(models.CharField):
         #                 We decide just to not have a logging model for the
         #                 migrations.
         # https://github.com/django/django/blob/f2ddc439b1938acb6cae693bda9d8cf83a4583be/django/db/migrations/state.py#L316
-        if self._machine.log_transitions and cls.__module__ != '__fake__':
+        if self._machine.log_transitions and cls.__module__ != "__fake__":
             from django_states.log import _create_state_log_model
+
             log_model = _create_state_log_model(cls, name, self._machine)
         else:
             log_model = None
 
-        setattr(cls, '_%s_log_model' % name, log_model)
+        setattr(cls, "_%s_log_model" % name, log_model)
 
         # adding extra methods
-        setattr(cls, 'get_%s_display' % name,
-                curry(get_STATE_display, field=name, machine=self._machine))
-        setattr(cls, 'get_%s_transitions' % name,
-                curry(get_STATE_transitions, field=name))
-        setattr(cls, 'get_public_%s_transitions' % name,
-                curry(get_public_STATE_transitions, field=name))
-        setattr(cls, 'get_%s_info' % name,
-                curry(get_STATE_info, field=name, machine=self._machine))
-        setattr(cls, 'get_%s_machine' % name,
-                curry(get_STATE_machine, field=name, machine=self._machine))
+        setattr(
+            cls,
+            "get_%s_display" % name,
+            curry(get_STATE_display, field=name, machine=self._machine),
+        )
+        setattr(cls, "get_%s_transitions" % name, curry(get_STATE_transitions, field=name))
+        setattr(
+            cls, "get_public_%s_transitions" % name, curry(get_public_STATE_transitions, field=name)
+        )
+        setattr(cls, "get_%s_info" % name, curry(get_STATE_info, field=name, machine=self._machine))
+        setattr(
+            cls,
+            "get_%s_machine" % name,
+            curry(get_STATE_machine, field=name, machine=self._machine),
+        )
 
         models.signals.class_prepared.connect(self.finalize, sender=cls)
 
@@ -101,7 +110,7 @@ class StateField(models.CharField):
             created = not obj.id
 
             # Validate whether this is an existing state
-            if kwargs.pop('no_state_validation', True):
+            if kwargs.pop("no_state_validation", True):
                 state = None
             else:
                 # Can raise UnknownState

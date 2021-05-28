@@ -25,23 +25,23 @@ import django_states
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.intersphinx', 'sphinx.ext.viewcode']
+extensions = ["sphinx.ext.autodoc", "sphinx.ext.intersphinx", "sphinx.ext.viewcode"]
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ["_templates"]
 
 # The suffix of source filenames.
-source_suffix = '.rst'
+source_suffix = ".rst"
 
 # The encoding of source files.
 # source_encoding = 'utf-8-sig'
 
 # The master toctree document.
-master_doc = 'index'
+master_doc = "index"
 
 # General information about the project.
-project = u'django-states'
-copyright = u'2011, Jonathan Slenders, Gert Van Gool'
+project = "django-states"
+copyright = "2011, Jonathan Slenders, Gert Van Gool"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -49,7 +49,7 @@ copyright = u'2011, Jonathan Slenders, Gert Van Gool'
 #
 
 # The short X.Y version, only interested in the number, e.g. 0.9.2
-version = django_states.__version__.split(' ')[0]
+version = django_states.__version__.split(" ")[0]
 # The full version, including alpha/beta/rc tags.
 release = django_states.__version__
 
@@ -65,7 +65,7 @@ release = django_states.__version__
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = ['_build']
+exclude_patterns = ["_build"]
 
 # The reST default role (used for this markup: `text`) to use for all documents.
 # default_role = None
@@ -82,7 +82,7 @@ exclude_patterns = ['_build']
 # show_authors = False
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'sphinx'
+pygments_style = "sphinx"
 
 # A list of ignored prefixes for module index sorting.
 # modindex_common_prefix = []
@@ -92,7 +92,7 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'alabaster'
+html_theme = "alabaster"
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -104,13 +104,11 @@ html_theme = 'alabaster'
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
-title_dict = {'project': project,
-              'version': version,
-              'release': release}
-html_title = '%(project)s v%(release)s documentation' % title_dict
+title_dict = {"project": project, "version": version, "release": release}
+html_title = "%(project)s v%(release)s documentation" % title_dict
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
-html_short_title = '%(project)s v%(version)s' % title_dict
+html_short_title = "%(project)s v%(version)s" % title_dict
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
@@ -124,7 +122,7 @@ html_short_title = '%(project)s v%(version)s' % title_dict
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+html_static_path = ["_static"]
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
 # using the given strftime format.
@@ -168,7 +166,7 @@ html_static_path = ['_static']
 # html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'django-statesdoc'
+htmlhelp_basename = "django-statesdoc"
 
 # -- Options for LaTeX output --------------------------------------------------
 
@@ -181,8 +179,13 @@ htmlhelp_basename = 'django-statesdoc'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-    ('index', 'django-states.tex', u'django-states Documentation',
-     u'Jonathan Slenders, Gert Van Gool', 'manual'),
+    (
+        "index",
+        "django-states.tex",
+        "django-states Documentation",
+        "Jonathan Slenders, Gert Van Gool",
+        "manual",
+    ),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -214,13 +217,18 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'django-states', u'django-states Documentation',
-     [u'Jonathan Slenders, Gert Van Gool'], 1)
+    (
+        "index",
+        "django-states",
+        "django-states Documentation",
+        ["Jonathan Slenders, Gert Van Gool"],
+        1,
+    )
 ]
 
 # -- Option for autodoc
-autodoc_member_order = 'bysource'
-autodoc_default_flags = ['members', 'undoc-members']
+autodoc_member_order = "bysource"
+autodoc_default_flags = ["members", "undoc-members"]
 
 # Example configuration for intersphinx: refer to the Python standard library.
-intersphinx_mapping = {'http://docs.python.org/': None}
+intersphinx_mapping = {"http://docs.python.org/": None}

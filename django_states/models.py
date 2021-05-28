@@ -11,7 +11,7 @@ Base models for every State.
 """
 
 
-__all__ = ('StateMachine', 'StateDefinition', 'StateTransition', 'StateModel')
+__all__ = ("StateMachine", "StateDefinition", "StateTransition", "StateModel")
 
 from django.db import models
 from django.db.models.base import ModelBase
@@ -29,24 +29,26 @@ class StateModelBase(ModelBase):
 
     This metaclass will initiate a logging model as well, if required.
     """
+
     def __new__(cls, name, bases, attrs):
         """
         Instantiation of the State type.
 
         When this type is created, also create a logging model if required.
         """
-        if name != 'StateModel' and 'Machine' in attrs:
-            attrs['state'] = StateField(max_length=100, default='0',
-                                        verbose_name=_('state id'),
-                                        machine=attrs['Machine'])
+        if name != "StateModel" and "Machine" in attrs:
+            attrs["state"] = StateField(
+                max_length=100, default="0", verbose_name=_("state id"), machine=attrs["Machine"]
+            )
 
         # Wrap __unicode__ for state model
-        if '__str__' in attrs:
-            old_str = attrs['__str__']
+        if "__str__" in attrs:
+            old_str = attrs["__str__"]
 
             def new_str(self):
-                return '%s (%s)' % (old_str(self), self.Machine.get_state(self.state).description)
-            attrs['__str__'] = new_str
+                return "%s (%s)" % (old_str(self), self.Machine.get_state(self.state).description)
+
+            attrs["__str__"] = new_str
 
         # Call class constructor of parent
         return ModelBase.__new__(cls, name, bases, attrs)
@@ -67,25 +69,26 @@ class StateModel(six.with_metaclass(StateModelBase, models.Model)):
         State machines should override this by creating a new machine,
         inherited directly from :class:`~django_states.machine.StateMachine`.
         """
+
         #: True when we should log all transitions
         log_transitions = False
 
         # Definition of states (mapping from state_slug to description)
         class initial(StateDefinition):
             initial = True
-            description = _('Initial state')
+            description = _("Initial state")
 
         # Possible transitions, and their names
         class dummy(StateTransition):
-            from_state = 'initial'
-            to_state = 'initial'
-            description = _('Make dummy state transition')
+            from_state = "initial"
+            to_state = "initial"
+            description = _("Make dummy state transition")
 
     class Meta:
         abstract = True
 
     def __str__(self):
-        return 'State: ' + self.state
+        return "State: " + self.state
 
     @property
     def state_transitions(self):
@@ -131,7 +134,7 @@ class StateModel(six.with_metaclass(StateModelBase, models.Model)):
         """
         Gets the state model
         """
-        return '%s.%s' % (self._meta.app_label, self._meta.object_name)
+        return "%s.%s" % (self._meta.app_label, self._meta.object_name)
 
     def can_make_transition(self, transition, user=None):
         """

@@ -14,12 +14,12 @@ class CanMakeTransitionNode(Node):
     def render(self, context):
         object = Variable(self.object).resolve(context)
         transition_name = Variable(self.transition_name).resolve(context)
-        user = Variable('request.user').resolve(context)
+        user = Variable("request.user").resolve(context)
 
         if user and object.can_make_transition(transition_name, user):
             return self.nodelist.render(context)
         else:
-            return ''
+            return ""
 
 
 @register.tag
@@ -38,7 +38,7 @@ def can_make_transition(parser, token):
     args = token.split_contents()
 
     # Read nodelist
-    nodelist = parser.parse(('endcan_make_transition',))
+    nodelist = parser.parse(("endcan_make_transition",))
     parser.delete_first_token()
 
     # Return meta node

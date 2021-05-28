@@ -25,11 +25,13 @@ def _create_state_log_model(state_model, field_name, machine):
         :class:`~django_states.fields.StateField` on the model
     :param django_states.machine.StateMachine machine: the state machine that's used
     """
+
     class StateTransitionMachine(StateMachine):
         """
         A :class:`~django_states.machine.StateMachine` for log entries (depending on
         what happens).
         """
+
         # We don't need logging of state transitions in a state transition log
         # entry, as this would cause eternal, recursively nested state
         # transition models.
@@ -37,59 +39,66 @@ def _create_state_log_model(state_model, field_name, machine):
 
         class transition_initiated(StateDefinition):
             """Transition has initiated"""
-            description = _('State transition initiated')
+
+            description = _("State transition initiated")
             initial = True
 
         class transition_started(StateDefinition):
             """Transition has started"""
-            description = _('State transition started')
+
+            description = _("State transition started")
 
         class transition_failed(StateDefinition):
             """Transition has failed"""
-            description = _('State transition failed')
+
+            description = _("State transition failed")
 
         class transition_completed(StateDefinition):
             """Transition has completed"""
-            description = _('State transition completed')
+
+            description = _("State transition completed")
 
         class start(StateTransition):
             """Transition Started"""
-            from_state = 'transition_initiated'
-            to_state = 'transition_started'
-            description = _('Start state transition')
+
+            from_state = "transition_initiated"
+            to_state = "transition_started"
+            description = _("Start state transition")
 
         class complete(StateTransition):
             """Transition Complete"""
-            from_state = 'transition_started'
-            to_state = 'transition_completed'
-            description = _('Complete state transition')
+
+            from_state = "transition_started"
+            to_state = "transition_completed"
+            description = _("Complete state transition")
 
         class fail(StateTransition):
             """Transition Failure"""
-            from_states = ('transition_initiated', 'transition_started')
-            to_state = 'transition_failed'
-            description = _('Mark state transition as failed')
+
+            from_states = ("transition_initiated", "transition_started")
+            to_state = "transition_failed"
+            description = _("Mark state transition as failed")
 
     class _StateTransitionMeta(ModelBase):
         """
         Make :class:`_StateTransition` act like it has another name and was
         defined in another model.
         """
+
         def __new__(c, name, bases, attrs):
 
-            new_unicode = u''
-            if '__unicode__' in attrs:
-                old_unicode = attrs['__unicode__']
+            new_unicode = ""
+            if "__unicode__" in attrs:
+                old_unicode = attrs["__unicode__"]
 
                 def new_unicode(self):
                     """New Unicode"""
-                    return u'%s (%s)' % (old_unicode(self), self.get_state_info().description)
+                    return "%s (%s)" % (old_unicode(self), self.get_state_info().description)
 
-            attrs['__unicode__'] = new_unicode
+            attrs["__unicode__"] = new_unicode
 
-            attrs['__module__'] = state_model.__module__
-            values = {'model_name': state_model.__name__,
-                      'field_name': field_name.capitalize()}
+            attrs["__module__"] = state_model.__module__
+            values = {"model_name": state_model.__name__, "field_name": field_name.capitalize()}
             class_name = conf.LOG_MODEL_NAME % values
 
             # Make sure that for Python2, class_name is a 'str' object.
@@ -107,30 +116,35 @@ def _create_state_log_model(state_model, field_name, machine):
         The log entries for :class:`~django_states.machine.StateTransition`.
         """
 
-        state = StateField(max_length=100, default='0',
-                           verbose_name=_('state id'),
-                           machine=StateTransitionMachine)
+        state = StateField(
+            max_length=100, default="0", verbose_name=_("state id"), machine=StateTransitionMachine
+        )
 
-        from_state = models.CharField(max_length=100,
-                                      choices=get_state_choices())
+        from_state = models.CharField(max_length=100, choices=get_state_choices())
         to_state = models.CharField(max_length=100, choices=get_state_choices())
-        user = models.ForeignKey(getattr(settings, 'AUTH_USER_MODEL', 'auth.User'), on_delete=models.CASCADE,
-                                 blank=True, null=True)
+        user = models.ForeignKey(
+            getattr(settings, "AUTH_USER_MODEL", "auth.User"),
+            on_delete=models.CASCADE,
+            blank=True,
+            null=True,
+        )
         serialized_kwargs = models.TextField(blank=True)
 
         start_time = models.DateTimeField(
-            auto_now_add=True, db_index=True,
-            verbose_name=_('transition started at')
+            auto_now_add=True, db_index=True, verbose_name=_("transition started at")
         )
-        on = models.ForeignKey(state_model, on_delete=models.CASCADE, related_name=('%s_history' % field_name))
+        on = models.ForeignKey(
+            state_model, on_delete=models.CASCADE, related_name=("%s_history" % field_name)
+        )
 
         class Meta:
             """Non-field Options"""
-            verbose_name = '%s transition' % state_model._meta.verbose_name
+
+            verbose_name = "%s transition" % state_model._meta.verbose_name
 
             # When the state class has been given an app_label, use
             # use this app_label as well for this StateTransition model.
-            if hasattr(state_model._meta, 'app_label'):
+            if hasattr(state_model._meta, "app_label"):
                 app_label = state_model._meta.app_label
 
         @property
@@ -147,7 +161,7 @@ def _create_state_log_model(state_model, field_name, machine):
             """
             Was the transition completed?
             """
-            return self.state == 'transition_completed'
+            return self.state == "transition_completed"
 
         @property
         def state_transition_definition(self):
@@ -218,7 +232,8 @@ def _create_state_log_model(state_model, field_name, machine):
 
         def __str__(self):
             return '<State transition on {0} at {1} from "{2}" to "{3}">'.format(
-                state_model.__name__, self.start_time, self.from_state, self.to_state)
+                state_model.__name__, self.start_time, self.from_state, self.to_state
+            )
 
     # This model will be detected by South because of the models.Model.__new__
     # constructor, which will register it somewhere in a global variable.
