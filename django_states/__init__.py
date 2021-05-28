@@ -8,7 +8,7 @@ State transitions can be logged for objects.
 
 __name__ = "django_states"
 __author__ = "Pivotal Energy Solutions"
-__version_info__ = (1, 7, 8)
+__version_info__ = (1, 7, 7)
 __version__ = ".".join(map(str, __version_info__))
 __date__ = "2014/07/22 4:47:00 PM"
 __credits__ = [
