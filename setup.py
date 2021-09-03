@@ -56,7 +56,7 @@ setup(
     ],
     python_requires=">=3.8.*",
     keywords="django state-machine",  # Optional
-    packages=find_packages(exclude=["demo_app", "django_states/tests.py"]),
+    packages=find_packages(exclude=["demo_app", "django_states/tests"]),
     install_requires=["Django>=2.2", "six"],  # Optional
     project_urls={  # Optional
         "Bug Reports": "{}/issues".format(base_url),
