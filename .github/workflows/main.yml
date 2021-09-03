@@ -202,7 +202,7 @@ jobs:
           GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
         run: |
           coverage erase
-          coverage run demo_app/manage.py test --noinput --settings=demo_app.settings_test django_states
+          coverage run demo_app/manage.py test --noinput --settings=demo_app.settings_test django_states.tests
           coverage xml -o ./coverage.xml
 
       - name: Show report
