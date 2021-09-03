@@ -41,7 +41,6 @@ setup(
         "Development Status :: 5 - Production/Stable",
         "Environment :: Web Environment",
         "Framework :: Django",
-        "Framework :: Django :: 2.2",
         "Framework :: Django :: 3.0",
         "Framework :: Django :: 3.1",
         "Framework :: Django :: 3.2",
@@ -57,7 +56,7 @@ setup(
     ],
     python_requires=">=3.8.*",
     keywords="django state-machine",  # Optional
-    packages=find_packages(exclude=["contrib", "docs", "demo_app"]),  # Required
+    packages=find_packages(exclude=["demo_app", "django_states/tests.py"]),
     install_requires=["Django>=2.2", "six"],  # Optional
     project_urls={  # Optional
         "Bug Reports": "{}/issues".format(base_url),
