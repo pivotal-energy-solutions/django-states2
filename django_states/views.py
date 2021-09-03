@@ -42,7 +42,7 @@ def make_state_transition(request):
         kwargs = {}
         for p in request.POST:
             if p.startswith("kwarg-"):
-                kwargs[p[len("kwargs-") - 1 :]] = request.POST[p]
+                kwargs[p[len("kwargs-") - 1 :]] = request.POST[p]  # noqa : E203
 
         if not hasattr(instance, "make_transition"):
             raise Exception('No such state model "%s"' % model_name)

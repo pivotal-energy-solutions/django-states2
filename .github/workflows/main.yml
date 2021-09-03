@@ -87,7 +87,7 @@ jobs:
           pip install bandit
 
       - name: Bandit
-        run: bandit -r django_states -x django_states/tests.py -f json -o report.json
+        run: bandit -r django_states -x django_states/tests.py -s B101 -f json -o report.json
 
       - name: Show report
         if: ${{ success() || failure() }}
