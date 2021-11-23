@@ -6,6 +6,36 @@ https://packaging.python.org/en/latest/distributing.html
 https://github.com/pypa/sampleproject
 """
 
+__name__ = "django_states"
+__author__ = "Pivotal Energy Solutions"
+__version_info__ = (1, 7, 8)
+__version__ = "1.7.8"
+__date__ = "2014/07/22 4:47:00 PM"
+__credits__ = [
+    "Jonathan Slenders",
+    "Ben Mason",
+    "Dirk Moors",
+    "Gert Van Gool",
+    "Giovanni Collazo",
+    "Jakub Paczkowski",
+    "Jan Fabry",
+    "Jef Geskens",
+    "Jonathan Slenders",
+    "José Padilla",
+    "Linsy Aerts",
+    "Maarten Timmerman",
+    "Niels Van Och",
+    "Olivier Sels",
+    "OpenShift guest",
+    "San Gillis",
+    "Simon Andersson",
+    "Steven Klass",
+    "sgillis",
+    "techdragon",
+]
+__license__ = "See the file LICENSE.txt for licensing information."
+
+
 # Always prefer setuptools over distutils
 from setuptools import setup, find_packages
 
@@ -14,8 +44,6 @@ from codecs import open
 from os import path
 
 here = path.abspath(path.dirname(__file__))
-
-from django_states import __version__, __name__, __author__
 
 name = "pivotal_" + __name__
 base_url = "https://github.com/pivotal-energy-solutions/django-states2"
@@ -29,7 +57,7 @@ with open(path.join(here, "README.md"), encoding="utf-8") as f:
 
 setup(
     name=name,
-    version=__version__,
+    version="1.7.8",
     description="State machine for django models",
     long_description=long_description,
     long_description_content_type="text/markdown",
