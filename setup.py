@@ -69,23 +69,21 @@ setup(
         "Development Status :: 5 - Production/Stable",
         "Environment :: Web Environment",
         "Framework :: Django",
-        "Framework :: Django :: 3.0",
-        "Framework :: Django :: 3.1",
         "Framework :: Django :: 3.2",
+        "Framework :: Django :: 4.0",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Topic :: Utilities",
     ],
-    python_requires=">=3.8.*",
+    python_requires=">=3.9.*",
+    install_requires=["Django>=3.2", "six"],  # Optional
     keywords="django state-machine",  # Optional
     packages=find_packages(exclude=["demo_app", "django_states/tests", "docs"]),
-    install_requires=["Django>=2.2", "six"],  # Optional
     project_urls={  # Optional
         "Bug Reports": "{}/issues".format(base_url),
         "Say Thanks!": "https://saythanks.io/to/rh0dium",
