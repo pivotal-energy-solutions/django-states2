@@ -1,1 +1,1 @@
-python-decouple
+django-environ
