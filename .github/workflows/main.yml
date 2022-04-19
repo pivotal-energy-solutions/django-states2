@@ -171,6 +171,7 @@ jobs:
           GOOGLE_MAPS_CLIENT_ID: ${{ secrets.GOOGLE_MAPS_CLIENT_ID }}
           GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
         run: |
+          export PYTHONPATH=`pwd`
           coverage run demo_app/manage.py test --noinput --settings=demo_app.settings_test django_states.tests
 
       - name: "Upload Coverage Results for PY:${{ matrix.python-version }} DB:${{ matrix.db}} DJ:${{ matrix.django-version }}"
@@ -182,6 +183,7 @@ jobs:
 
       - name: Django Check
         run: |
+          export PYTHONPATH=`pwd`
           python demo_app/manage.py check
 
   coverage:
