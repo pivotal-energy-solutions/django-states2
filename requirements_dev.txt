@@ -1,4 +1,4 @@
-python-decouple
+django-environ
 mock
 flake8
 tox
