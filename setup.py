@@ -80,7 +80,7 @@ setup(
         "Programming Language :: Python :: 3.10",
         "Topic :: Utilities",
     ],
-    python_requires=">=3.9.*",
+    python_requires=">=3.9",
     install_requires=["Django>=3.2", "six"],  # Optional
     keywords="django state-machine",  # Optional
     packages=find_packages(exclude=["demo_app", "django_states/tests", "docs"]),
