@@ -86,7 +86,6 @@ def _create_state_log_model(state_model, field_name, machine):
         """
 
         def __new__(c, name, bases, attrs):
-
             new_unicode = ""
             if "__unicode__" in attrs:
                 old_unicode = attrs["__unicode__"]
