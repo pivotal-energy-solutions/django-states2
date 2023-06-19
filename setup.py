@@ -8,8 +8,8 @@ https://github.com/pypa/sampleproject
 
 __name__ = "django_states"
 __author__ = "Pivotal Energy Solutions"
-__version_info__ = (1, 7, 28)
-__version__ = "1.7.28"
+__version_info__ = (1, 7, 29)
+__version__ = "1.7.29"
 __date__ = "2014/07/22 4:47:00 PM"
 __credits__ = [
     "Jonathan Slenders",
@@ -57,7 +57,7 @@ with open(path.join(here, "README.md"), encoding="utf-8") as f:
 
 setup(
     name=name,
-    version="1.7.28",
+    version="1.7.29",
     description="State machine for django models",
     long_description=long_description,
     long_description_content_type="text/markdown",
