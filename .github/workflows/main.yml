@@ -155,7 +155,6 @@ jobs:
           GOOGLE_MAPS_CLIENT_ID: ${{ secrets.GOOGLE_MAPS_CLIENT_ID }}
           GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
         run: export PYTHONPATH=`pwd` && coverage run
-
       - name: "Upload Coverage Results for PY:${{ matrix.python-version }} DB:${{ matrix.db}} DJ:${{ matrix.django-version }}"
         uses: actions/upload-artifact@v3
         with:
@@ -164,8 +163,7 @@ jobs:
           retention-days: 1
 
       - name: Django Check
-        run: |
-          python demo_app/manage.py check
+        run: python demo_app/manage.py check
 
   coverage:
     name: Upload Coverage to Codecov
