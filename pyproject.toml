@@ -87,7 +87,7 @@ exclude = '''
 
 [tool.bandit]
 targets = ['django_states']
-exclude_dirs = ["django_states/tests"]
+exclude_dirs = ["django_states/tests", "demo_app"]
 skips = ["B101"]
 
 [tool.coverage.run]
