@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Models"""
+
 import six
 
 # Author: Jonathan Slenders, CityLive
