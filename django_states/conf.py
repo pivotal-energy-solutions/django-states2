@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Configuration options"""
+
 from django.conf import settings
 
 
