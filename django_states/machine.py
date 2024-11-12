@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """State Machine"""
 
 __all__ = ("StateMachine", "StateDefinition", "StateTransition")

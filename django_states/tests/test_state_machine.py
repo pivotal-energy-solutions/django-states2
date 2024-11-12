@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Tests"""
 
 from django.contrib.auth.models import User

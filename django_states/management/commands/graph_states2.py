@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import logging
 from optparse import make_option
 

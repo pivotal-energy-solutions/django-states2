@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from django.template import Node, Variable
 from django.template import Library
 

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Urls"""
 
 from django.urls import path

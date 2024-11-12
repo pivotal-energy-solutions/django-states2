@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Fields used"""
 
 __all__ = ("StateField",)
