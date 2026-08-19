@@ -71,21 +71,20 @@ Note: If you're creating a ``DataMigration`` in
 Usage example:
 
 ```python
+p = Purchase()
 
-   p = Purchase()
+# Will automatically create state object for this purchase, in the
+# initial state.
+p.save()
+p.get_purchase_state_info().make_transition("mark_paid", request.user)  # User parameter is optional
+p.state  # Will return 'paid'
+p.get_purchase_state_info().description  # Will return 'Purchase paid'
 
-   # Will automatically create state object for this purchase, in the
-   # initial state.
-   p.save()
-   p.get_purchase_state_info().make_transition('mark_paid', request.user) # User parameter is optional
-   p.state # Will return 'paid'
-   p.get_purchase_state_info().description # Will return 'Purchase paid'
+# Returns an iterator of possible transitions for this purchase.
+p.get_purchase_state_info().possible_transitions()
 
-   # Returns an iterator of possible transitions for this purchase.
-   p.get_purchase_state_info().possible_transitions()
-
-   # Which can be used like this..
-   [x.get_name() for x in p.possible_transitions]
+# Which can be used like this..
+[x.get_name() for x in p.possible_transitions]
 ```
 
 For better transition control, override:
@@ -125,12 +124,12 @@ is. We support 2 different state groups, inclusive (only these) or
 exclusive (everything but these):
 
 ```python
+class is_paid(StateGroup):
+    states = ["paid", "shipped"]
 
-  class is_paid(StateGroup):
-      states = ['paid', 'shipped']
 
-  class is_paid(StateGroup):
-      exclude_states = ['initiated']
+class is_paid(StateGroup):
+    exclude_states = ["initiated"]
 ```
 
 ## State graph
